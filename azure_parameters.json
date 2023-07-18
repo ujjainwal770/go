@@ -1,0 +1,14 @@
+{
+  "godaddyApiSecret": "" 
+  "godaddyApiKey": ""
+  "smtpUser":  
+  "smtpPassword": ""
+  "ceebit_license_key": ""
+  "ceebit_license_secret": ""
+  "ceebit_code_user": ""
+  "ceebit_code_password": ""
+  "tenant_id": ""
+  "subscription_id": ""
+  "az_client_id": ""
+  "az_client_secret": ""
+}
