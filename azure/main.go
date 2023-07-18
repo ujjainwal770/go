@@ -11,19 +11,19 @@ func main() {
 	cloudProvider := os.Args[1]
 
 	switch cloudProvider {
-	case "AWS":
+	case "aws":
 		// Set up AWS-specific configurations and execute Terraform commands
 		fmt.Println("Configuring AWS provider...")
 		runTerraformCommand("init", "aws")
 		runTerraformCommand("plan", "aws")
 		runTerraformCommand("apply", "aws")
-	case "Azure":
+	case "azure":
 		// Set up Azure-specific configurations and execute Terraform commands
 		fmt.Println("Configuring Azure provider...")
 		runTerraformCommand("init", "azure")
 		runTerraformCommand("plan", "azure")
 		runTerraformCommand("apply", "azure")
-	case "Google Cloud":
+	case "gcp":
 		// Set up Google Cloud-specific configurations and execute Terraform commands
 		fmt.Println("Configuring Google Cloud provider...")
 		runTerraformCommand("init", "gcp")
