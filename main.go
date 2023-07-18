@@ -39,7 +39,7 @@ func main() {
 }
 
 func runTerraformCommand(command string, provider string) {
-	cmd := exec.Command("terraform", command, "-var-file=terraform.tfvars")
+	cmd := exec.Command("terraform", command)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	err := cmd.Run()
