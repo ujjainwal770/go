@@ -33,13 +33,6 @@ func main() {
 		log.Fatal("Invalid cloud provider selected")
 	}
 }
-
-func runTerraformCommand(command string, provider string) {
-	// Change to the desired directory before executing the Terraform command
-	err := os.Chdir("/aws")
-	if err != nil {
-		log.Fatal(err)
-	}
 func runTerraformCommand(command string, provider string) {
 	cmd := exec.Command("terraform", command, "-var-file=terraform.tfvars")
 	cmd.Stdout = os.Stdout
