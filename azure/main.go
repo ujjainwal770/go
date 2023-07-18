@@ -8,6 +8,10 @@ import (
 )
 
 func main() {
+	if len(os.Args) < 2 {
+		log.Fatal("Cloud provider argument is missing")
+	}
+
 	cloudProvider := os.Args[1]
 
 	switch cloudProvider {
@@ -33,6 +37,7 @@ func main() {
 		log.Fatal("Invalid cloud provider selected")
 	}
 }
+
 func runTerraformCommand(command string, provider string) {
 	cmd := exec.Command("terraform", command, "-var-file=terraform.tfvars")
 	cmd.Stdout = os.Stdout
