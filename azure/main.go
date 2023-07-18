@@ -1,45 +1,44 @@
 package main
-import "fmt"
-import (
 
+import (
+	"fmt"
 	"log"
 	"os"
 	"os/exec"
 )
 
 func main() {
-	// Get the command-line arguments
-	apiSecret := os.Args[2]
-	apiKey := os.Args[4]
-	smtpUser := os.Args[6]
-	smtpPassword := os.Args[8]
-	ceebitLicenseKey := os.Args[10]
-	ceebitLicenseSecret := os.Args[12]
-	ceebitCodeUser := os.Args[14]
-	ceebitCodePassword := os.Args[16]
+	cloudProvider := os.Args[1]
 
-	// Set environment variables for Terraform
-	os.Setenv("GODADDY_API_SECRET", apiSecret)
-	os.Setenv("GODADDY_API_KEY", apiKey)
-	os.Setenv("SMTP_USER", smtpUser)
-	os.Setenv("SMTP_PASSWORD", smtpPassword)
-	os.Setenv("CEEBIT_LICENSE_KEY", ceebitLicenseKey)
-	os.Setenv("CEEBIT_LICENSE_SECRET", ceebitLicenseSecret)
-	os.Setenv("CEEBIT_CODE_USER", ceebitCodeUser)
-	os.Setenv("CEEBIT_CODE_PASSWORD", ceebitCodePassword)
-
-	// Run Terraform commands
-	initCmd := exec.Command("terraform", "init")
-	err := initCmd.Run()
+	switch cloudProvider {
+	case "AWS":
+		// Set up AWS-specific configurations and execute Terraform commands
+		fmt.Println("Configuring AWS provider...")
+		runTerraformCommand("init", "aws")
+		runTerraformCommand("plan", "aws")
+		runTerraformCommand("apply", "aws")
+	case "Azure":
+		// Set up Azure-specific configurations and execute Terraform commands
+		fmt.Println("Configuring Azure provider...")
+		runTerraformCommand("init", "azure")
+		runTerraformCommand("plan", "azure")
+		runTerraformCommand("apply", "azure")
+	case "Google Cloud":
+		// Set up Google Cloud-specific configurations and execute Terraform commands
+		fmt.Println("Configuring Google Cloud provider...")
+		runTerraformCommand("init", "gcp")
+		runTerraformCommand("plan", "gcp")
+		runTerraformCommand("apply", "gcp")
+	default:
+		log.Fatal("Invalid cloud provider selected")
+	}
+}
+func runTerraformCommand(command string, provider string) {
+	cmd := exec.Command("terraform", command, "-var-file=terraform.tfvars")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	err := cmd.Run()
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	applyCmd := exec.Command("terraform", "apply", "-auto-approve")
-	err = applyCmd.Run()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	fmt.Println("Terraform apply completed successfully.")
 }
